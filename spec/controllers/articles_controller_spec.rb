@@ -53,7 +53,7 @@ describe ArticlesController do
                 "title" => article.title,
                 "content"=> article.content,
                 "slug"=> article.slug
-            )
+            ) 
         end
     end
 end
