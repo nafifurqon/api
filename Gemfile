@@ -9,10 +9,14 @@ gem 'rails', '~> 5.2.0'
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
+
+#Added for learn rails api
 gem 'rspec-rails', '~> 4.0', '>= 4.0.1'
 gem 'factory_bot_rails', '~> 6.1'
 gem 'active_model_serializers'
 gem 'kaminari', '~> 1.2', '>= 1.2.1'
+gem 'octokit', '~> 4.0'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
