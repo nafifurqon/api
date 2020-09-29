@@ -28,7 +28,8 @@ describe UserAuthenticator do
                   login: 'nafifurqon1',
                   url: 'http://example.com',
                   avatar_url: 'http://example.com/avatar',
-                  name: 'Nafi Furqon'
+                  name: 'Nafi Furqon',
+                  provider: 'github'
                 }
             end
 
@@ -41,8 +42,14 @@ describe UserAuthenticator do
             end
 
             it 'should save the user when does not exists' do
-                expect{ subject }.to change{ User.count }.by(1)
+                expect{ subject }.to change{ User.count }.by(1) 
                 expect(User.last.name).to eq('Nafi Furqon')
+            end
+
+            it 'should reuse already registered user' do
+                user = create :user, user_data
+                expect{ subject }.not_to change{ User.count }
+                expect(authenticator.user).to eq(user)
             end
         end 
     end
