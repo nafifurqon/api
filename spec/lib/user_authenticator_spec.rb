@@ -23,24 +23,26 @@ describe UserAuthenticator do
         end
 
         context 'when code is correct' do
-            let(:user_data) do {
-                    login: 'nafifurqon1',
-                    avatar_url: 'http://example.com/avatar',
-                    url: 'http://example.com',
-                    name: 'Nafi Furqon',
+            let(:user_data) do
+                {
+                  login: 'nafifurqon1',
+                  url: 'http://example.com',
+                  avatar_url: 'http://example.com/avatar',
+                  name: 'Nafi Furqon'
                 }
             end
+
             before do
-                allow_any_instance_of(Octokit::Client).to receive(:exchange_code_for_token).and_return('validaccesstoken')
-            end
-            
-            before do
-                allow_any_instance_of(Octokit::Client).to receive(:exchange_code_for_token).and_return(user_data)
+                allow_any_instance_of(Octokit::Client).to receive(
+                    :exchange_code_for_token).and_return('validaccesstoken')
+        
+                allow_any_instance_of(Octokit::Client).to receive(
+                    :user).and_return(user_data)
             end
 
-            it 'should save the user when does not exist' do
-               expect{ subject }.to change{ User.count }.by 1
-               expect(User.last.name).to eq('User Name 1')
+            it 'should save the user when does not exists' do
+                expect{ subject }.to change{ User.count }.by(1)
+                expect(User.last.name).to eq('Nafi Furqon')
             end
         end 
     end
