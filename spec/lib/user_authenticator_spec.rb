@@ -11,7 +11,8 @@ describe UserAuthenticator do
              }
 
             before do
-                allow_any_instance_of(Octokit::Client).to receive(:exchange_code_for_token).and_return(error)
+                allow_any_instance_of(Octokit::Client).to receive(
+                    :exchange_code_for_token).and_return(error)
             end
 
             it 'should raise an error' do                
@@ -28,8 +29,7 @@ describe UserAuthenticator do
                   login: 'nafifurqon1',
                   url: 'http://example.com',
                   avatar_url: 'http://example.com/avatar',
-                  name: 'Nafi Furqon',
-                  provider: 'github'
+                  name: 'Nafi Furqon'
                 }
             end
 
