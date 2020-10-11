@@ -249,7 +249,7 @@ describe ArticlesController do
         end
     end
 
-    describe '#create' do
+    describe '#destroy' do
         let(:user){ create :user }
         let(:article){ create :article, user: user }
         let(:access_token){ user.create_access_token }
