@@ -6,10 +6,27 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-3.times do |article|
-    Article.create(
-        title: "Article title #{article}",
-        content: "Article content #{article}",
-        slug: "article-title-#{article}"
-    )
-end
+user = User.create(
+    { login: 'nafifurqon', name: 'Nafi Furqon', provider: 'github' }
+)
+
+Article.create([
+    {
+        title: 'Article title 1',
+        content: 'Article content 1',
+        slug: 'article-title-1',
+        user: user
+    },
+    {
+        title: 'Article title 2',
+        content: 'Article content 2',
+        slug: 'article-title-2',
+        user: user
+    },
+    {
+        title: 'Article title 3',
+        content: 'Article content 3',
+        slug: 'article-title-3',
+        user: user
+    }
+])
