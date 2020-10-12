@@ -17,7 +17,7 @@ RSpec.describe AccessTokensController, type: :controller do
                     :exchange_code_for_token).and_return(github_error)
             end
 
-            subject { post :create, params: { code: 'invalid_code' } }
+            subject { post :create, params: { code: "invalid_code" } }
             
             it_behaves_like 'unauthorized_oauth_requests'
         end
