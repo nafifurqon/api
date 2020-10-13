@@ -1,20 +1,20 @@
 class AccessTokensController < ApplicationController
-    skip_before_action :authorize!, only: :create
-    
-    def create
-        authenticator = UserAuthenticator.new(authentication_params)
-        authenticator.perform
+  skip_before_action :authorize!, only: :create
 
-        render json: authenticator.access_token, status: :created
-    end
+  def create
+    authenticator = UserAuthenticator.new(authentication_params)
+    authenticator.perform
 
-    def destroy
-        current_user.access_token.destroy
-    end
+    render json: authenticator.access_token, status: :created
+  end
 
-    private
+  def destroy
+    current_user.access_token.destroy
+  end
 
-    def authentication_params
-        params.permit(:code).to_h.symbolize_keys
-    end
+  private
+
+  def authentication_params
+    params.permit(:code).to_h.symbolize_keys
+  end
 end

@@ -6,7 +6,7 @@ shared_examples_for "unauthorized_standard_requests" do
             "status" => "401",
             "source" => { "pointer" => "/data/attributes/password" },
             "title"  =>  "Invalid login or password",
-            "detail" => "You must provide valid creddentials in order to exchange them for token."
+            "detail" => "You must provide valid credentials in order to exchange them for token."
         }
     end
     
@@ -26,7 +26,7 @@ shared_examples_for "unauthorized_oauth_requests" do
         {
             "status" => "401",
             "source" => { "pointer" => "/code" },
-            "title"  =>  "Authentication code is invalid",
+            "title" =>  "Authentication code is invalid",
             "detail" => "You must provide valid code in order to exchange it for token."
         }
     end
