@@ -16,6 +16,7 @@ gem 'factory_bot_rails', '~> 6.1'
 gem 'active_model_serializers'
 gem 'kaminari', '~> 1.2', '>= 1.2.1'
 gem 'octokit', '~> 4.0'
+gem 'bcrypt'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
