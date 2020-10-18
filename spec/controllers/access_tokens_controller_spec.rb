@@ -37,7 +37,7 @@ RSpec.describe AccessTokensController, type: :controller do
         end
 
         context 'when valid data provided' do
-            let(:user){ create :user, login: 'nafifurqon', password: 'invalid_password' }
+            let(:user){ create :user, login: 'nafifurqon', password: 'secret' }
             subject { post :create, params: params }
             
             before { user }
@@ -49,8 +49,6 @@ RSpec.describe AccessTokensController, type: :controller do
 
             it 'should return proper json body' do
                 subject
-                user = User.find_by(login: 'nafifurqon1')
-
                 expect(json_data['attributes']).to eq(
                     { 'token' => user.access_token.token }
                 )
