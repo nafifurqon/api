@@ -2,11 +2,59 @@ require 'rails_helper'
 
 RSpec.describe AccessTokensController, type: :controller do
     describe 'POST #create' do
-        context 'when no code provided' do
-            subject { post :create }
-            it_behaves_like 'unauthorized_requests'
+        let(:params) do
+            {
+                data: {
+                    attributes: {
+                        login: 'nafifurqon',
+                        password: 'secret'
+                    }
+                }
+            }
         end
-  
+        
+        context 'when no auth_data provided' do
+            subject { post :create }
+            it_behaves_like "unauthorized_standard_requests"
+        end
+        
+        context 'when invalid login provided' do
+            let(:user){ create :user, login: 'invalidlogin', password: 'secret' }
+            subject { post :create, params: params }
+            
+            before { user }
+
+            it_behaves_like 'unauthorized_standard_requests'
+        end
+
+        context 'when invalid password provided' do
+            let(:user){ create :user, login: 'nafifurqon', password: 'invalid_password' }
+            subject { post :create, params: params }
+            
+            before { user }
+
+            it_behaves_like 'unauthorized_standard_requests'
+        end
+
+        context 'when valid data provided' do
+            let(:user){ create :user, login: 'nafifurqon', password: 'secret' }
+            subject { post :create, params: params }
+            
+            before { user }
+
+            it 'should return 201 status code' do
+                subject
+                expect(response).to have_http_status(:created)
+            end
+
+            it 'should return proper json body' do
+                subject
+                expect(json_data['attributes']).to eq(
+                    { 'token' => user.access_token.token }
+                )
+            end
+        end
+
         context 'when invalid code provided' do
             let(:github_error) {
                 double("Sawyer::Resource", error: "bad_verification_code")
@@ -17,9 +65,9 @@ RSpec.describe AccessTokensController, type: :controller do
                     :exchange_code_for_token).and_return(github_error)
             end
 
-            subject { post :create, params: { code: 'invalid_code' } }
+            subject { post :create, params: { code: "invalid_code" } }
             
-            it_behaves_like 'unauthorized_requests'
+            it_behaves_like 'unauthorized_oauth_requests'
         end
 
         context 'when valid request' do
